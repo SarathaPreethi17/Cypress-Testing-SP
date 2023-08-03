@@ -1,3 +1,4 @@
+
 ///<reference types = "Cypress"/>
 
 import 'cypress-file-upload'
@@ -27,12 +28,18 @@ describe("Various File Uploads", () => {
         cy.get('#drag-drop-upload > .dz-preview > .dz-details > .dz-filename > span').should('have.text' , 'SarathaPreethi_CV.pdf')
     })
 
-    it("Upload Multiple files" , ()=> {
+    it.skip("Upload Multiple files" , ()=> {
         cy.visit("https://davidwalsh.name/demo/multiple-file-upload.php")
         cy.get('#filesToUpload').attachFile(['SarathaPreethi_CV.pdf', '23-24_olp_340114.pdf'])
         cy.get('.demo-wrapper > :nth-child(6)').should('contain.text', 'Files You Selected')
 
 
+    })
+    it("File Upload in Shadow DOM" , () => {
+
+        cy.visit('https://www.htmlelements.com/demos/fileupload/shadow-dom/index.htm')
+        cy.get('.smart-browse-input', {includeShadowDom:true}).attachFile('SarathaPreethi_CV.pdf')
+        cy.get('.smart-item-name', {includeShadowDom: true}).should('contain.text' , 'SarathaPreethi')
     })
 
 

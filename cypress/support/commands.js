@@ -26,9 +26,40 @@
 
 ///<reference types = "Cypress"/>
 
+
+
 Cypress.Commands.add('getIframe', (iframe)=> {
     return cy.get(iframe).its('0.contentDocument.body').should('be.visible').then(cy.wrap)
     
 })
 
+//custom commands for clicking the link in the webpage
 
+Cypress.Commands.add('clickLink', (Label) => {
+    cy.get('a').contains(Label).click();
+})
+
+//Over write the custom commands
+
+/*Cypress.Commands.overwrite('contains', (originalFn, subject, filter, text, options = {} ) => {
+
+    if(typeof text ==='object'){
+        options=text
+        text=filter
+        filter=undefined
+
+    }
+
+    options.matchCase = false
+
+    return originalFn(subject,filter,text,options)
+})
+*/
+
+Cypress.Commands.add('LoginApp', (email,password) =>{
+cy.get('#Email').type(email)
+cy.get('#Password').type(password)
+cy.get("button[class='button-1 login-button']").click()  
+    
+
+})
